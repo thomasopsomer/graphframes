@@ -327,7 +327,7 @@ object ConnectedComponents extends Logging {
         .distinct()
 
       // checkpointing
-      if (shouldCheckpoint && (iteration % checkpointInterval == 0)) {
+      if (shouldCheckpoint && (iteration % checkpointInterval == 0) && ee.head(1).nonEmpty) {
         // TODO: remove this after DataFrame.checkpoint is implemented
         val out = s"${checkpointDir.get}/$iteration"
         ee.write.parquet(out)
